@@ -1,0 +1,180 @@
+       <!-- Portfolio Grid Section -->
+    <div id="cookdashboard" ng-app="menuStore" ng-controller="cookController">
+      <div class="container" >
+            <div class="row">
+            	<div class="col-sm-3">
+					<div class="panel panel-default">
+            			<div class="panel-heading">
+            				<h4> Dashboard Navigation </h4>
+            			</div>
+            			<div class="panel-body">
+            				  <ul class="list-group">
+            				  	<li class="list-group-item"> Dashboard Home</li>
+            				  	<li class="list-group-item"> <a href ng-click="editMenu()">Your Menus</a></li>
+            				  	<li class="list-group-item"> <a href ng-click="editMenu()">Create Menu</a></li>
+            				  	<li class="list-group-item"> <a href ng-click="viewOrders()">View Orders</a></li>
+            				  	<li class="list-group-item"><a href="/user/profile" >My Profile</a></li>
+            				  	<li class="list-group-item"><a href="/logout">Logout</a></li>
+            				  </ul>
+            			</div>
+            		</div>
+            	</div>
+            	<div class="col-sm-9">
+					<div class="panel panel-default" ng-show="dashboardNav.listMyMenus" ng-init="collectUserMenus()">
+            			<div class="panel-heading">
+            				<h4> My Menus </h4>
+            			</div>
+            			<div class="panel-body">
+            				  <ol class="breadcrumb">
+            				  	<li><a href="">Dashboard</a></li>
+            				  	<li><a href="">Menus</a></li>
+            				  	<li><a href="" class="active">Create Menu</a></li>
+            				  </ol>
+            				   <!-- Table -->
+ 								<table class="table table-striped">
+    								<thead>
+      									<tr>
+        									<th>Name</th>
+        									<th>Date</th>
+        									<th>Status</th>
+        									<th>Price</th>
+        									<th>Created On</th>
+        									<th>Edited On</th>
+        									<th></th>
+      									</tr>
+    								</thead>
+    								<tbody ng-repeat="product in products | orderBy: 'status'">
+    									<tr>
+    										<td><a href ng-click="editMenu(product.id)">{{product.name}}</a></td>
+    										<td>TBD</td>
+    										<td>{{product.status}}</td>
+    										<td>{{product.price}} €</td>
+    										<td>{{product.createdAt | date:'medium'}}</td>
+    										<td>{{product.createdAt | date:'medium'}}</td>
+											<td><a href ng-click="editMenu(product.id)">Edit</a></td>
+    									</tr>
+    								</tbody>
+    						</table>
+            			</div>
+            		</div>
+
+                <div class="panel panel-default" ng-show="dashboardNav.editMyMenu">
+                  			<div class="panel-heading">
+                  				<h4> Edit Menu - {{product.id}} </h4>
+                  			</div>
+                  			<div class="panel-body">
+                          <form novalidate class="simple-form">
+                  				  <ol class="breadcrumb">
+                  				  	<li><a href="">Dashboard</a></li>
+                  				  	<li><a href="">Menus</a></li>
+                  				  	<li><a href="" class="active">Create Menu</a></li>
+                  				  </ol>
+                            <div class="page-header">
+                              <h2><small>Menu Basics</small></h2>
+                           </div>
+                  				<div class="input-group">
+                            <span class="input-group-addon" id="basic-addon1"> Name</span>
+                            <input type="text" class="form-control" placeholder="A catchey name that you will call your menu" aria-describedby="basic-addon1" ng-model="product.name">
+                          </div>
+                          <div class="input-group">
+                            <span class="input-group-addon" id="basic-addon1">Menu Teaser</span>
+                            <input type="text" class="form-control" placeholder="A short description of your menu to catch users eye" aria-describedby="basic-addon1" ng-model="product.teaser">
+                          </div>
+                          <div class="input-group">
+                            <span class="input-group-addon" id="basic-addon1">Menu Description</span>
+                            <input type="text" class="form-control" placeholder="Description" aria-describedby="basic-addon1" ng-model="product.description">
+                          </div>
+                          <div class="input-group">
+                            <span class="input-group-addon" id="basic-addon1">Menu Price (per portion)</span>
+                            <input type="text" class="form-control" placeholder="Price" aria-describedby="basic-addon1" ng-model="product.price">
+                          </div>
+                          <div class="page-header">
+                            <h2><small>Catagories</small></h2>
+                            <div class="input-group">
+                          <div class="row" ng-repeat="cat in product.category track by $index">
+                              <div class="col-xs-4 col-xs-offset-1">
+                                <input type="text" class="form-control" name="cat" placeholder="Catagory" value="{{cat}}" />
+                              </div>
+                              <div class="col-xs-1">
+                                <button type="button" class="btn btn-default removeButton" ng-click="removeCat($index)"><i class="fa fa-minus"></i></button>
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="col-xs-4 col-xs-offset-1">
+                                <input type="text" class="form-control" name="cat" placeholder="Add Catagory" ng-model="catinput"/>
+                              </div>
+                              <div class="col-xs-1">
+                                <button type="button" class="btn btn-default addButton" ng-click="addCat()"><i class="fa fa-plus"></i></button>
+                              </div>
+                          <div class="page-header">
+                            <h2><small>Courses</small></h2>
+                            <div class="input-group">
+                              <span class="input-group-addon" id="basic-addon1">Starter</span>
+                              <input type="text" class="form-control" placeholder="catagories" aria-describedby="basic-addon1" ng-model="product.starter" rows="10">
+                            </div>
+                            <div class="input-group">
+                              <span class="input-group-addon" id="basic-addon1">Main</span>
+                              <input type="text" class="form-control" placeholder="catagories" aria-describedby="basic-addon1" ng-model="product.main" rows="10">
+                            </div>
+                            <div class="input-group">
+                              <span class="input-group-addon" id="basic-addon1">Desert</span>
+                              <input type="text" class="form-control" placeholder="catagories" aria-describedby="basic-addon1" ng-model="product.desert" rows="10">
+                            </div>
+                            <div class="input-group">
+                              <span class="input-group-addon" id="basic-addon1">Sides</span>
+                              <input type="text" class="form-control" placeholder="catagories" aria-describedby="basic-addon1" ng-model="product.sides" rows="10">
+                            </div>
+                            <div class="input-group">
+                              <span class="input-group-addon" id="basic-addon1">Drink</span>
+                              <input type="text" class="form-control" placeholder="catagories" aria-describedby="basic-addon1" ng-model="product.drinks" rows="10">
+                            </div>
+                         </div>
+                         <div class="page-header">
+                           <h2><small>Ingrediants</small></h2>
+                        </div>
+                          <div class="row" ng-repeat="ingrediant in product.ingrediants">
+                              <div class="col-xs-4 col-xs-offset-1">
+                                <input type="text" class="form-control" name="ingrediant" placeholder="Ingrediant Name" value="{{ingrediant}}" />
+                              </div>
+                              <div class="col-xs-1">
+                                <button type="button" class="btn btn-default removeButton" ng-click="removeIng($index)"><i class="fa fa-minus"></i></button>
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="col-xs-4 col-xs-offset-1">
+                                <input type="text" class="form-control" name="ingrediant" placeholder="Add Ingrediant" ng-model="input"/>
+                              </div>
+                              <div class="col-xs-1">
+                                <button type="button" class="btn btn-default addButton" ng-click="addIng()"><i class="fa fa-plus"></i></button>
+                              </div>
+                            </div>
+                        <div class="page-header">
+                          <h2><small>Menu Photo's</small></h2>
+                       </div>
+                       <div class="row" ng-repeat="image in product.images track by $index">
+                           <div class="col-xs-4 col-xs-offset-1">
+                             <input type="text" class="form-control" name="image" placeholder="Image URL" value="{{image}}" />
+                           </div>
+                           <div class="col-xs-1">
+                             <button type="button" class="btn btn-default removeButton" ng-click="removeImg($index)"><i class="fa fa-minus"></i></button>
+                           </div>
+                         </div>
+                         <div class="row">
+                           <div class="col-xs-4 col-xs-offset-1">
+                             <input type="text" class="form-control" name="image" placeholder="Add Ingrediant" ng-model="imginput"/>
+                           </div>
+                           <div class="col-xs-1">
+                             <button type="button" class="btn btn-default addButton" ng-click="addImg()"><i class="fa fa-plus"></i></button>
+                           </div>
+                         </div>
+                  			</div>
+                  		</div>
+            	</div>
+              <input type="submit" ng-click="editMenuSave(product)" value="Save" />
+              <input type="submit" ng-click="menuPreview(product.id)" value="Preview" />
+              <input type="submit" ng-click="menuPreview(product.id)" value="Open Menu" />
+              <input type="submit" ng-click="editMenuSave(product)" value="View Orders" />
+            </form>
+          </div>
+     </div>
+   </div>

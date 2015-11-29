@@ -1,0 +1,216 @@
+
+
+    
+
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="intro-text">
+                <div class="intro-lead-in">Welcome To DinnerTomorow!</div>
+                <div class="intro-heading">It's Nice To Meet You</div>
+                <a href="#about" class="page-scroll btn btn-xl">Tell Me More</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Services Section -->
+    <section id="join" ng-app="menuStore" ng-controller="SignupController" >
+      <!-- SIGNUP FORM -->
+      <form ng-submit="submitSignupForm()" id="sign-up-form" class="form-signin" name="signup">
+        <h2 class="form-signin-heading">Create an account</h2>
+        <div class="row">
+
+          <!-- F N A M E -->
+
+          <!-- checking whether the form "signup" with the "name" property is both $invalid AND $dirty.  If it is
+          insert the "has-error" class on the input field (i.e. insert a red border around the input field)
+          -->
+          <div class="control-group form-group col-md-12"
+          ng-class="{'has-error':signup.fname.$invalid &&
+                                signup.fname.$dirty}">
+            <label>Your Fist Name</label>
+
+            <!-- For this input field make it required, and have a max length of 25 -->
+            <input type="text" class="form-control" placeholder="e.g. Dan" name="fname" ng-model="signupForm.fname" ng-maxlength="50" required>
+
+            <!-- Also, if signup.name.$dirty is true, show the message depending upon the particular properties truthiness (e.g. required
+            and/or maxlength) -->
+            <span class="help-block has-error" ng-if="signup.fname.$dirty">
+              <span ng-show="signup.fname.$error.required">First Name is required.</span>
+              <span ng-show="signup.fname.$error.maxlength">The name cannot be more than 50 characters.</span>
+            </span>
+          </div>
+
+          <!-- L N A M E -->
+
+          <div class="control-group form-group col-md-12"
+          ng-class="{'has-error':signup.lname.$invalid &&
+                                signup.lname.$dirty}">
+            <label>Your Last Name</label>
+
+            <!-- For this input field make it required, and have a max length of 25 -->
+            <input type="text" class="form-control" placeholder="e.g. Dan" name="lname" ng-model="signupForm.lname" ng-maxlength="50" required>
+
+            <!-- Also, if signup.name.$dirty is true, show the message depending upon the particular properties truthiness (e.g. required
+            and/or maxlength) -->
+            <span class="help-block has-error" ng-if="signup.lname.$dirty">
+              <span ng-show="signup.lname.$error.required">Last Name is required.</span>
+              <span ng-show="signup.lname.$error.maxlength">The name cannot be more than 50 characters.</span>
+            </span>
+          </div>
+
+          <!-- CITY  -->
+
+          <div class="control-group form-group col-md-12"
+          ng-class="{'has-error':signup.city.$invalid &&
+                                signup.city.$dirty}">
+            <label>City where you live</label>
+
+            <!-- For this input field make it required, and have a max length of 25 -->
+            <input type="text" class="form-control" placeholder="e.g. Dan" name="city" ng-model="signupForm.city" ng-maxlength="50" required>
+
+            <!-- Also, if signup.name.$dirty is true, show the message depending upon the particular properties truthiness (e.g. required
+            and/or maxlength) -->
+            <span class="help-block has-error" ng-if="signup.city.$dirty">
+              <span ng-show="signup.city.$error.required">The city you live in is required.</span>
+              <span ng-show="signup.city.$error.maxlength">The city cannot be more than 50 characters.</span>
+            </span>
+          </div>
+
+
+
+          <!-- E M A I L -->
+
+          <div class="control-group form-group col-md-12"
+          ng-class="{'has-error':signup.email.$invalid &&
+                                signup.email.$dirty}">
+            <label>Your email address</label>
+            <input type="email" class="form-control" placeholder="nikola@tesla.com" name="email" ng-model="signupForm.email" required >
+            <span class="help-block has-error" ng-if="signup.email.$dirty">
+              <span ng-show="signup.email.$error.required">Email address is required.</span>
+              <span ng-show="signup.email.$error.email">Not a valid email address.</span>
+            </span>
+          </div>
+
+          <!-- P A S S W O R D-->
+
+          <div class="control-group form-group col-md-6"
+          ng-class="{'has-error':signup.password.$invalid &&
+                                signup.password.$dirty}">
+            <label>Choose a password</label>
+            <input type="password" class="form-control" placeholder="at least 6 characters" name="password" ng-model="signupForm.password" id="password" required ng-minlength="6" compare-to="signupForm.confirmPassword" >
+            <span class="help-block has-error" ng-if="signup.password.$dirty">
+              <span ng-show="signup.password.$error.required">Password is required.</span>
+              <span ng-show="signup.password.$error.minlength">Password must be at least 6 characters.</span>
+            </span>
+          </div>
+
+
+
+          <!-- C O N F I R M  P A S S W O R D -->
+
+          <div class="control-group form-group col-md-6">
+            <label>Re-enter your password</label>
+            <input type="password" class="form-control" placeholder="one more time" name="confirmation" ng-model="signupForm.confirmPassword" required>
+            <span class="help-block has-error" ng-if="signup.confirmation.$dirty">
+              <span ng-show="signup.password.$error.compareTo">Password must match.</span>
+              <span ng-show="signup.confirmation.$error.required">Confirmation password is required.</span>
+            </span>
+          </div>
+        </div>
+
+
+        <br/>
+
+        <!-- Disable signup button until the form has no errors -->
+        <button class="btn btn-primary btn-lg btn-block" type="submit" ng-disabled="signup.$invalid">
+          <span ng-show="!signupForm.loading">Create Account</span>
+          <span class="overlord-loading-spinner fa fa-spinner" ng-show="signupForm.loading" ></span>
+          <span ng-show="signupForm.loading">Preparing your new account...</span>
+        </button>
+
+        <input type="hidden" name="_csrf" value="<%= _csrf %>" />
+      </form>
+    </div>
+    </section>
+
+    <!-- About Section  -->
+    <section id="about">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h2 class="section-heading">How does it work?</h2>
+                    <h3 class="section-subheading text-muted">Its simple, below shows how your order happens...</h3>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <ul class="timeline">
+                        <li>
+                            <div class="timeline-image">
+                                <img class="img-circle img-responsive" src="img/Open-Sign-512.png" alt="">
+                            </div>
+                            <div class="timeline-panel">
+                                <div class="timeline-heading">
+                                    <h4>2 Days Before Your Order</h4>
+                                    <h4 class="subheading">Preparing for sale</h4>
+                                </div>
+                                <div class="timeline-body">
+                                    <p class="text-muted">Our home cooks post up their meal on the website and how many meals they can support</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="timeline-inverted">
+                            <div class="timeline-image">
+                                <img class="img-circle img-responsive" src="img/Online-Shopping-512.png" alt="">
+                            </div>
+                            <div class="timeline-panel">
+                                <div class="timeline-heading">
+                                    <h4>1 Day before</h4>
+                                    <h4 class="subheading">Browse the avaluble menu's</h4>
+                                </div>
+                                <div class="timeline-body">
+                                    <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt ut voluptatum eius sapiente, totam reiciendis temporibus qui quibusdam, recusandae sit vero unde, sed, incidunt et ea quo dolore laudantium consectetur!</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="timeline-image">
+                                <img class="img-circle img-responsive" src="img/Euro-Coin-512.png" alt="">
+                            </div>
+                            <div class="timeline-panel">
+                                <div class="timeline-heading">
+                                    <h4>1 Day before</h4>
+                                    <h4 class="subheading">Choose your menu & Pay online</h4>
+                                </div>
+                                <div class="timeline-body">
+                                    <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt ut voluptatum eius sapiente, totam reiciendis temporibus qui quibusdam, recusandae sit vero unde, sed, incidunt et ea quo dolore laudantium consectetur!</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="timeline-inverted">
+                            <div class="timeline-image">
+                                <img class="img-circle img-responsive" src="img/Cheese-512.png" alt="">
+                            </div>
+                            <div class="timeline-panel">
+                                <div class="timeline-heading">
+                                    <h4>On the day</h4>
+                                    <h4 class="subheading">Pickup your dinner</h4>
+                                </div>
+                                <div class="timeline-body">
+                                    <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt ut voluptatum eius sapiente, totam reiciendis temporibus qui quibusdam, recusandae sit vero unde, sed, incidunt et ea quo dolore laudantium consectetur!</p>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="timeline-inverted">
+                            <div class="timeline-image">
+                                <h4>Be Part
+                                    <br>Of Our
+                                    <br>Community!!</h4>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>

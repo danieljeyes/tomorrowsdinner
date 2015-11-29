@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>New Sails App</title>
+
+    <!-- Viewport mobile tag for sensible mobile support -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+    <!--
+        Stylesheets and Preprocessors
+        ==============================
+
+        You can always bring in CSS files manually with `<link>` tags, or asynchronously
+        using a solution like AMD (RequireJS).  Or, if you like, you can take advantage
+        of Sails' conventional asset pipeline (boilerplate Gruntfile).
+
+        By default, stylesheets from your `assets/styles` folder are included
+        here automatically (between STYLES and STYLES END). Both CSS (.css) and LESS (.less)
+        are supported. In production, your styles will be minified and concatenated into
+        a single file.
+
+        To customize any part of the built-in behavior, just edit `tasks/pipeline.js`.
+        For example, here are a few things you could do:
+
+            + Change the order of your CSS files
+            + Import stylesheets from other directories
+            + Use a different or additional preprocessor, like SASS, SCSS or Stylus
+    -->
+
+    <!--STYLES-->
+    <link rel="stylesheet" href="/styles/agency.css">
+    <link rel="stylesheet" href="/styles/angular-toastr.css">
+    <link rel="stylesheet" href="/styles/bootstrap.3.1.1.css">
+    <link rel="stylesheet" href="/styles/bootstrap.css">
+    <link rel="stylesheet" href="/styles/bootstrap.min.css">
+    <link rel="stylesheet" href="/styles/css/font-awesome.css">
+    <link rel="stylesheet" href="/styles/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/styles/importer.css">
+    <!--STYLES END-->
+
+  </head>
+
+  <body ng-cloak flow-prevent-drop ng-app="menuStore" ng-controller="sessionController" ng-style="{'padding-top': headerpadding}">
+
+    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation" ng-show="topbar">
+
+	<div class="navbar-header">
+        <div class="navbar-header"><a class="navbar-brand" href="/user/profile/ ">Welcome {{loggedinUser.fname}}</a></div>
+		<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+		<span class="icon-bar"></span>
+		<span class="icon-bar"></span>
+		<span class="icon-bar"></span>
+		</button>
+	</div>
+
+	<div class="collapse navbar-collapse">
+		<ul class="nav navbar-nav pull-right">
+			<li><a href="#">Profile</a></li>
+			<li><a href="#">Orders</a></li>
+			<li><a href="#">Menus</a></li>
+      <li><a href="#">Wish List</a></li>
+      <li><a href="#">Logout</a></li>
+			<li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li><a href="#">Action</a></li>
+                <li><a href="#">Another action</a></li>
+                <li class="divider"></li>
+                <li><a href="#">Separated link</a></li>
+                <li class="divider"></li>
+                <li><a href="#">One more separated link</a></li>
+              </ul>
+            </li>
+		</ul>
+
+	</div>
+</div>
+
+
+<div class="navbar navbar-default navbar-static-top" role="navigation">
+      <div class="container" ng-controller="navigationController" ng-init="checkSession()" >
+          <!-- Brand and toggle get grouped for better mobile display -->
+
+
+          <div class="navbar-header page-scroll">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                  <span class="sr-only">Toggle navigation</span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand page-scroll" href="/">DinnerTomorow</a>
+          </div>
+
+
+
+          <!-- Collect the nav links, forms, and other content for toggling -->
+          <div class="collapse navbar-collapse" id="bs-example-navbar-c§ollapse-1" ng-switch on="userLevel">
+              <ul class="nav navbar-nav navbar-right" ng-switch-default>
+                  <li class="hidden">
+                      <a href="#page-top"></a>
+                  </li>
+                  <li>
+                      <a class="page-scroll" href="/menus">Menus</a>
+                  </li>
+                  <li>
+                      <a class="page-scroll" href="/#about">About</a>
+                  </li>
+                  <li>
+                      <a class="page-scroll" href="/cook">I <i class="fa fa-heart"></i> Eating</a>
+                  </li>
+                  <li >
+                      <a class="page-scroll" href="/consumer">I <i class="fa fa-heart"></i> Cooking</a>
+                  </li>
+                  <li>
+                      <a class="page-scroll" href ng-hide="loggedIn" ng-click="showLogin()"></i> Login</a>
+                      <a class="page-scroll" href ng-show="loggedIn" ng-click="logout()"></i> Logout</a>
+                  </li>
+                  <li>
+                      <a class="page-scroll" href="/#contact">Contact</a>
+                  </li>
+              </ul>
+
+              <ul class="nav navbar-nav navbar-right" ng-switch-when="registered">
+                  <li class="hidden">
+                      <a href="#page-top"></a>
+                  </li>
+                  <li>
+                      <a class="page-scroll" href="/menus">Menus</a>
+                  </li>
+                  <li>
+                      <a class="page-scroll" href="/#about">About</a>
+                  </li>
+                  <li>
+                      <a class="page-scroll" href="/consumer/dashboard">User: {{loggedinUser.fname}}</a>
+                  </li>
+                  <li>
+                      <a class="page-scroll" href ng-hide="loggedIn" ng-click="showLogin()"></i> Login</a>
+                      <a class="page-scroll" href ng-show="loggedIn" ng-click="logout()"></i> Logout</a>
+                  </li>
+                  <li>
+                      <a class="page-scroll" href="/#contact">Contact</a>
+                  </li>
+              </ul>
+
+              <ul class="nav navbar-nav navbar-right" ng-switch-when="cook">
+                <li class="hidden">
+                    <a href="#page-top"></a>
+                </li>
+                <li>
+                    <a class="page-scroll" href="/menus">Menus</a>
+                </li>
+                <li>
+                    <a class="page-scroll" href="/#about">About</a>
+                </li>
+                <li>
+                    <a class="page-scroll" href="/cook/dashboard">Cook: {{loggedinUser.fname}}</a>
+                </li>
+                <li>
+                    <a class="page-scroll" href ng-hide="loggedIn" ng-click="showLogin()"></i> Login</a>
+                    <a class="page-scroll" href ng-show="loggedIn" ng-click="logout()"></i> Logout</a>
+                </li>
+                <li>
+                    <a class="page-scroll" href="/#contact">Contact</a>
+                </li>
+            </ul>
+
+          </div>
+          <!-- /.navbar-collapse -->
+      </div>
+
+      <!-- /.container-fluid -->
+  </div>
+
+    <ig-login></ig-login>
+
+
+    <%- body %>
+
+
+
+    <!--
+        Client-side Templates
+        ========================
+
+        HTML templates are important prerequisites of modern, rich client applications.
+        To work their magic, frameworks like Backbone, Angular, Ember, and Knockout require
+        that you load these templates client-side.
+
+        By default, your Gruntfile is configured to automatically load and precompile
+        client-side JST templates in your `assets/templates` folder, then
+        include them here automatically (between TEMPLATES and TEMPLATES END).
+
+        To customize this behavior to fit your needs, just edit `tasks/pipeline.js`.
+        For example, here are a few things you could do:
+
+            + Import templates from other directories
+            + Use a different template engine (handlebars, jade, dust, etc.)
+            + Internationalize your client-side templates using a server-side
+              stringfile before they're served.
+    -->
+
+    <!--TEMPLATES-->
+
+    <!--TEMPLATES END-->
+
+
+    <!--
+
+      Client-side Javascript
+      ========================
+
+      You can always bring in JS files manually with `script` tags, or asynchronously
+      on the client using a solution like AMD (RequireJS).  Or, if you like, you can
+      take advantage of Sails' conventional asset pipeline (boilerplate Gruntfile).
+
+      By default, files in your `assets/js` folder are included here
+      automatically (between SCRIPTS and SCRIPTS END).  Both JavaScript (.js) and
+      CoffeeScript (.coffee) are supported. In production, your scripts will be minified
+      and concatenated into a single file.
+
+      To customize any part of the built-in behavior, just edit `tasks/pipeline.js`.
+      For example, here are a few things you could do:
+
+          + Change the order of your scripts
+          + Import scripts from other directories
+          + Use a different preprocessor, like TypeScript
+
+    -->
+
+    <!--SCRIPTS-->
+    <script src="/js/dependencies/sails.io.js"></script>
+    <script src="/js/dependencies/jquery-1.11.3.js"></script>
+    <script src="/js/dependencies/angular.1.3.js"></script>
+    <script src="/js/dependencies/angular-filter.js"></script>
+    <script src="/js/dependencies/angular-google-maps.min.js"></script>
+    <script src="/js/dependencies/angular-modal-service.js"></script>
+    <script src="/js/dependencies/angular-route.min.js"></script>
+    <script src="/js/dependencies/angular-simple-logger.js"></script>
+    <script src="/js/dependencies/angular-toastr.js"></script>
+    <script src="/js/dependencies/bootstrap.js"></script>
+    <script src="/js/dependencies/compareTo.module.js"></script>
+    <script src="/js/dependencies/lodash.js"></script>
+    <script src="/js/dependencies/ng-file-upload/FileAPI.js"></script>
+    <script src="/js/dependencies/ng-file-upload/FileAPI.min.js"></script>
+    <script src="/js/dependencies/ng-file-upload/ng-file-upload-all.js"></script>
+    <script src="/js/dependencies/ng-file-upload/ng-file-upload-all.min.js"></script>
+    <script src="/js/dependencies/ng-file-upload/ng-file-upload-shim.js"></script>
+    <script src="/js/dependencies/ng-file-upload/ng-file-upload-shim.min.js"></script>
+    <script src="/js/dependencies/ng-file-upload/ng-file-upload.js"></script>
+    <script src="/js/dependencies/ng-file-upload/ng-file-upload.min.js"></script>
+    <script src="/js/dependencies/ui-bootstrap-tpls-0.13.4.min.js"></script>
+    <script src="/js/app.js"></script>
+    <script src="/js/upload.js"></script>
+    <!--SCRIPTS END-->
+  </body>
+</html>

@@ -1,0 +1,141 @@
+
+    <section id="menu" class="bg-light-gray" ng-app="menuStore" ng-controller="menuController as menuCtlr" ng-init="viewMenu('<%= req.params.id %>')">
+      <div class="container" ng-show="!error">
+            <div class="row">
+              <div class="alert alert-danger" role="alert" ng-show="productDetails.status == 'draft'">
+                  This menu has not yet been published, you are viewing in preview mode!
+                </div>
+                <div class="col-lg-12 text-center">
+                  <span class="sr-only">Error:</span>
+                    <h2 class="section-heading">{{productDetails.name}}</h2>
+                 <div>
+                    <h3  class="section-subheading text-muted">{{productDetails.teaser}}</h3>
+                  </div>
+                </div>
+                <div class="col-sm-7">
+                 <div class="gallery-left relative clearfix">
+                <div class="images">
+                <a href=""><img width="600"  src="/{{productDetails.images[0]}}" class="attachment-shop_single wp-post-image" alt="bigstock-Vintage-Empty-Leather-Suitcase-81170282_blue" title="bigstock-Vintage-Empty-Leather-Suitcase-81170282_blue" data-o_src=""></a>
+                  <div class="thumbnails columns-3">
+                    <div>
+                      <a href="" title=""><img width="150" src="/{{productDetails.images[0]}}" alt="" title=""></a>
+                      <a href="" title=""><img width="150" src="/{{productDetails.images[1]}}" alt="" title=""></a>
+                      <a href="" title=""><img width="150" src="/{{productDetails.images[2]}}" alt="" title=""></a>
+                   </div>
+                  </div>
+                </div>
+                <span class="sale-primary"></span>
+                </div>
+          </div>
+
+          <div class="col-sm-5">
+            <div class="panel panel-default">
+              <!-- Default panel contents -->
+              <div class="panel-heading"><h4>Menu Overview</h4></div>
+              <div class="panel-body">
+                <p>{{productDetails.description}}</p>
+              </div>
+
+              <!-- List group -->
+              <ul class="list-group">
+                <li class="list-group-item"><b>Category:</b> {{productDetails.category}}</li>
+                <li class="list-group-item"><b>Cources:</b>3 Courses</li>
+                <li class="list-group-item"><b>Date:</b> {{productDetails.dateofdinner | date : 'longDate' }}</li>
+                <li class="list-group-item"><b>Avalubility:</b> Porta ac consectetur ac</li>
+                <li class="list-group-item"><b>Order Closes:</b> Porta ac consectetur ac</li>
+                <li class="list-group-item"><b>{{productDetails.price}}</b>£</li>
+              </ul>
+            </div>
+            <div class="panel panel-default" ng-app="menuStore" ng-controller="PaymentController as paymentCtrl">
+
+              <div class="panel-heading"><h4>Order Menu</h4></div>
+              <form id="checkout" method="post" action="/payment/checkout">
+                <div class="panel-body">
+                  <div class="input-group">
+                    <span class="input-group-addon" id="basic-addon1">Number of Portions:</span>
+                    <select name="portions" class="form-control" >
+                        <option value="black">Black</option>
+                        <option value="blue">Blue</option>
+                        <option value="green">Green</option>
+                        <option value="orange">Orange</option>
+                        <option value="red">Red</option>
+                        <option value="yellow">Yellow</option>
+                        <option value="white">White</option>
+                    </select>
+                  </div>
+                  <div class="input-group">
+                    <span class="input-group-addon" id="basic-addon1">Pickup Time</span>
+                    <select name="pickuptime" class="form-control" >
+                        <option value="black">Black</option>
+                        <option value="blue">Blue</option>
+                        <option value="green">Green</option>
+                        <option value="orange">Orange</option>
+                        <option value="red">Red</option>
+                        <option value="yellow">Yellow</option>
+                        <option value="white">White</option>
+                    </select>
+                  </div>
+                <div id="payment-form"></div>
+                  <input type="submit" value="Pay $10">
+             </form>
+           </div>
+
+
+             <script src="https://js.braintreegateway.com/v2/braintree.js"></script>
+             <script>
+             // We generated a client token for you so you can test out this code
+             // immediately. In a production-ready integration, you will need to
+             // generate a client token on your server (see section below).
+             var clientToken = "eyJ2ZXJzaW9uIjoyLCJhdXRob3JpemF0aW9uRmluZ2VycHJpbnQiOiJmMzk5NjRmMGJhYjA3MWMzNzJmYTczMGEyM2M2YmYwOTIxOWZkYzc3ZWE3ZDdjMTVhODBkOWZiMmI0OTQ0ZTg1fGNyZWF0ZWRfYXQ9MjAxNS0xMS0wM1QxODo1NjowOC43Mzg2NTk2MDIrMDAwMFx1MDAyNm1lcmNoYW50X2lkPThjenk5OXc0eGdjNTU2ampcdTAwMjZwdWJsaWNfa2V5PTRncWtmamQyZ25ibm43cDIiLCJjb25maWdVcmwiOiJodHRwczovL2FwaS5zYW5kYm94LmJyYWludHJlZWdhdGV3YXkuY29tOjQ0My9tZXJjaGFudHMvOGN6eTk5dzR4Z2M1NTZqai9jbGllbnRfYXBpL3YxL2NvbmZpZ3VyYXRpb24iLCJjaGFsbGVuZ2VzIjpbXSwiZW52aXJvbm1lbnQiOiJzYW5kYm94IiwiY2xpZW50QXBpVXJsIjoiaHR0cHM6Ly9hcGkuc2FuZGJveC5icmFpbnRyZWVnYXRld2F5LmNvbTo0NDMvbWVyY2hhbnRzLzhjenk5OXc0eGdjNTU2amovY2xpZW50X2FwaSIsImFzc2V0c1VybCI6Imh0dHBzOi8vYXNzZXRzLmJyYWludHJlZWdhdGV3YXkuY29tIiwiYXV0aFVybCI6Imh0dHBzOi8vYXV0aC52ZW5tby5zYW5kYm94LmJyYWludHJlZWdhdGV3YXkuY29tIiwiYW5hbHl0aWNzIjp7InVybCI6Imh0dHBzOi8vY2xpZW50LWFuYWx5dGljcy5zYW5kYm94LmJyYWludHJlZWdhdGV3YXkuY29tIn0sInRocmVlRFNlY3VyZUVuYWJsZWQiOnRydWUsInRocmVlRFNlY3VyZSI6eyJsb29rdXBVcmwiOiJodHRwczovL2FwaS5zYW5kYm94LmJyYWludHJlZWdhdGV3YXkuY29tOjQ0My9tZXJjaGFudHMvOGN6eTk5dzR4Z2M1NTZqai90aHJlZV9kX3NlY3VyZS9sb29rdXAifSwicGF5cGFsRW5hYmxlZCI6dHJ1ZSwicGF5cGFsIjp7ImRpc3BsYXlOYW1lIjoiT3duIENvbXBhbnkiLCJjbGllbnRJZCI6bnVsbCwicHJpdmFjeVVybCI6Imh0dHA6Ly9leGFtcGxlLmNvbS9wcCIsInVzZXJBZ3JlZW1lbnRVcmwiOiJodHRwOi8vZXhhbXBsZS5jb20vdG9zIiwiYmFzZVVybCI6Imh0dHBzOi8vYXNzZXRzLmJyYWludHJlZWdhdGV3YXkuY29tIiwiYXNzZXRzVXJsIjoiaHR0cHM6Ly9jaGVja291dC5wYXlwYWwuY29tIiwiZGlyZWN0QmFzZVVybCI6bnVsbCwiYWxsb3dIdHRwIjp0cnVlLCJlbnZpcm9ubWVudE5vTmV0d29yayI6dHJ1ZSwiZW52aXJvbm1lbnQiOiJvZmZsaW5lIiwidW52ZXR0ZWRNZXJjaGFudCI6ZmFsc2UsImJyYWludHJlZUNsaWVudElkIjoibWFzdGVyY2xpZW50MyIsImJpbGxpbmdBZ3JlZW1lbnRzRW5hYmxlZCI6bnVsbCwibWVyY2hhbnRBY2NvdW50SWQiOiJvd25jb21wYW55IiwiY3VycmVuY3lJc29Db2RlIjoiRVVSIn0sImNvaW5iYXNlRW5hYmxlZCI6ZmFsc2UsIm1lcmNoYW50SWQiOiI4Y3p5OTl3NHhnYzU1NmpqIiwidmVubW8iOiJvZmYifQ==";
+
+             braintree.setup(clientToken, "dropin", {
+               container: "payment-form"
+             });
+             </script>
+            </div>
+          </div>
+
+
+          <div class="row">
+            <div class="col-sm-7">
+                <div class="panel panel-default">
+                  <div class="panel-heading"><h4>Menu Details</h4></div>
+                    <ul class="list-group">
+                      <li ng-show="productDetails.starter"class="list-group-item"><b>Stater:</b> {{productDetails.starter}}</li>
+                      <li ng-show="productDetails.main" class="list-group-item"><b>Main:</b>{{productDetails.main}}</li>
+                      <li ng-show="productDetails.desert"class="list-group-item"><b>Desert:</b> {{productDetails.desert}}</li>
+                      <li ng-show="productDetails.sides"class="list-group-item"><b>Sides:</b> {{productDetails.sides}}</li>
+                      <li ng-show="productDetails.drinks"class="list-group-item"><b>Drink:</b> {{productDetails.drinks}}</li>
+                    </ul>
+                </div>
+                <div class="panel panel-default">
+                  <div class="panel-heading"><h4>ingrediants</h4></div>
+                  <div class="panel-body">{{productDetails.ingrediants}} </div>
+                </div>
+            </div>
+          <div class="col-sm-5">
+            <div class="panel panel-default">
+                <!-- Default panel contents -->
+                <div class="panel-heading"><h4>Pickup Location</h4></div>
+                <div class="panel-body">
+                  <div id="map_canvas">
+                    <ui-gmap-google-map center="map.center" zoom="map.zoom" draggable="true" options="options">
+                      <ui-gmap-circle ng-repeat="c in circles track by c.id" center="c.center" stroke="c.stroke" fill="c.fill" radius="c.radius"
+                        visible="c.visible" geodesic="c.geodesic" editable="c.editable" draggable="c.draggable" clickable="c.clickable" control="c.control"></ui-gmap-circle>
+                    </ui-gmap-google-map>
+                  </div>
+                  </div<
+                  <div class="panel-body">
+                  <p> Exact address will be provided after menu purchase, for privacy reasons. </p>
+                </div>
+                </div>
+              </div>
+            </div>
+      </div>
+      <div class="container" ng-show="error">
+        <h3 class=col-lg-12> Opps!</h3>
+        <h4> The product your looking for doesnt exist. Please try again </h4>
+      </div>
+
+
+    </section>
