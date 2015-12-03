@@ -1,0 +1,145 @@
+
+<div class="container"  ng-controller="cookController" ng-init="editMenu('<%=req.params.id%>')">
+    <h1>Edit Menu - {{product.name}}</h1>
+  	<hr>
+	<div class="row">
+      <!-- left column -->
+      <div class="col-md-3">
+        <div class="text-center">
+          <img src="//placehold.it/100" class="avatar img-circle" alt="avatar">
+          <h6>Upload a different photo...</h6>
+
+          <input type="file" class="form-control">
+        </div>
+      </div>
+
+      <!-- edit form column -->
+      <div class="col-md-9 personal-info">
+        <div class="alert alert-info alert-dismissable">
+          <a class="panel-close close" data-dismiss="alert">×</a>
+          <i class="fa fa-coffee"></i>
+          This is an <strong>.alert</strong>. Use this to show important messages to the user.
+        </div>
+        <h3>Menu Basic Info</h3>
+
+        <form class="form-horizontal" role="form">
+          <div class="form-group">
+            <label class="col-lg-3 control-label">Menu Name:</label>
+            <div class="col-lg-8">
+              <input class="form-control" type="text" id="name" ng-model="product.name">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-lg-3 control-label"> Teaser:</label>
+            <div class="col-lg-8">
+              <input class="form-control" type="text" id="teaser" ng-model="product.teaser">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-lg-3 control-label">Description</label>
+            <div class="col-lg-8">
+              <textarea class="form-control" rows="5" id="description" ng-model="product.description"></textarea>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-lg-3 control-label">Menu Price (per portion)</label>
+            <div class="col-lg-2" fs-counter value="product.price"
+                  data-min="0"
+                  data-max="100"
+                  data-step="1"
+                  data-addclass="someClass"
+                  data-width="10px"
+                  data-editable>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-lg-3 control-label">Max Number of Portions</label>
+            <div class="col-lg-2" fs-counter value="product.price"
+                  data-min="0"
+                  data-max="100"
+                  data-step="1"
+                  data-addclass="someClass"
+                  data-width="10px"
+                  data-editable>
+            </div>
+          </div>
+          <h3>Menu Details</h3>
+          <div class="form-group">
+            <label class="col-lg-3 control-label">Starter:</label>
+            <div class="col-lg-8">
+              <textarea class="form-control" rows="5" id="starter" ng-model="product.starter"></textarea>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-lg-3 control-label">Main:</label>
+            <div class="col-lg-8">
+              <textarea class="form-control" rows="5" id="main" ng-model="product.main"></textarea>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-lg-3 control-label">Desert:</label>
+            <div class="col-lg-8">
+              <textarea class="form-control" rows="5" id="desert" ng-model="product.desert"></textarea>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-lg-3 control-label">Drinks:</label>
+            <div class="col-lg-8">
+              <textarea class="form-control" rows="5" id="drinks" ng-model="product.drinks"></textarea>
+            </div>
+          </div>
+          <h3>Detailed Info</h3>
+          <div class="form-group" ng-repeat="ingrediant in product.ingrediants">
+            <label class="col-lg-3 control-label">Ingrediants:</label>
+            <div class="row">
+              <div class="col-xs-4">
+                <input type="text" class="form-control" name="ingrediant" placeholder="Ingrediant Name" value="{{ingrediant}}" />
+              </div>
+              <div class="col-xs-1">
+                <button type="button" class="btn btn-default removeButton" ng-click="removeIng($index)"><i class="fa fa-minus"></i></button>
+            </div>
+          </div>
+        </div>
+          <div class="form-group" ng-repeat="ingrediant in product.ingrediants">
+            <label class="col-lg-3 control-label"></label>
+            <div class="row">
+              <div class="col-xs-4">
+                <input type="text" class="form-control" name="ingrediant" placeholder="Add Ingrediant" ng-model="input"/>
+              </div>
+              <div class="col-xs-1">
+                <button type="button" class="btn btn-default addButton" ng-click="addIng()"><i class="fa fa-plus"></i></button>
+              </div>
+            </div>
+          </div>
+          <div class="row" ng-repeat="image in product.images track by $index">
+            <label class="col-lg-3 control-label">Images:</label>
+            <div class="row">
+              <div class="col-xs-4">
+                <input type="text" class="form-control" name="ingrediant" placeholder="Image Name" value="{{image}}" />
+              </div>
+              <div class="col-xs-1">
+                <button type="button" class="btn btn-default removeButton" ng-click="removeImg($index)"><i class="fa fa-minus"></i></button>
+            </div>
+          </div>
+        </div>
+          <div class="form-group" ng-repeat="ingrediant in product.images">
+            <label class="col-lg-3 control-label"></label>
+            <div class="row">
+              <div class="col-xs-4">
+                <input type="text" class="form-control" name="image" placeholder="Add Image" ng-model="input"/>
+              </div>
+              <div class="col-xs-1">
+                <button type="button" class="btn btn-default addButton" ng-click="addImg()"><i class="fa fa-plus"></i></button>
+              </div>
+            </div>
+          </div>
+
+
+
+
+
+        </form>
+      </div>
+  </div>
+</div>
+<hr>

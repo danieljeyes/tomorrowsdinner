@@ -58,7 +58,7 @@ module.exports.policies = {
    'OwnerPolicy',
    'PermissionPolicy',
    'RolePolicy',
-   'CriteriaPolicy'
+   'CriteriaPolicy',
  ],
 
  AuthController: {
@@ -69,5 +69,7 @@ module.exports.policies = {
  UserController: { create: true },
 
  UserController: { me: true },
+
+ MenuController: { public: true },
 
 };

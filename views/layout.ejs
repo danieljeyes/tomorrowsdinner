@@ -4,7 +4,7 @@
     <title>New Sails App</title>
 
     <!-- Viewport mobile tag for sensible mobile support -->
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta ng-bind name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
 
     <!--
@@ -57,9 +57,9 @@
 
 	<div class="collapse navbar-collapse">
 		<ul class="nav navbar-nav pull-right">
-			<li><a href="#">Profile</a></li>
-			<li><a href="#">Orders</a></li>
-			<li><a href="#">Menus</a></li>
+			<li><a href="/account/profile">Profile</a></li>
+			<li><a href="/account/orders/">Your Orders</a></li>
+			<li><a href="/cook/menus">Menus</a></li>
       <li><a href="#">Wish List</a></li>
       <li><a href="#">Logout</a></li>
 			<li class="dropdown">
@@ -203,7 +203,7 @@
     -->
 
     <!--TEMPLATES-->
-
+    
     <!--TEMPLATES END-->
 
 
@@ -242,6 +242,7 @@
     <script src="/js/dependencies/angular-toastr.js"></script>
     <script src="/js/dependencies/bootstrap.js"></script>
     <script src="/js/dependencies/compareTo.module.js"></script>
+    <script src="/js/dependencies/counter.js"></script>
     <script src="/js/dependencies/lodash.js"></script>
     <script src="/js/dependencies/ng-file-upload/FileAPI.js"></script>
     <script src="/js/dependencies/ng-file-upload/FileAPI.min.js"></script>

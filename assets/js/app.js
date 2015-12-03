@@ -1,6 +1,6 @@
 // ------------- menu section ------------------//
 
-var app = angular.module('menuStore', ['uiGmapgoogle-maps', 'ngRoute', 'toastr', 'compareTo', 'angular.filter', 'ngFileUpload']);
+var app = angular.module('menuStore', ['uiGmapgoogle-maps', 'ngRoute', 'toastr', 'compareTo', 'angular.filter', 'ngFileUpload', 'Firestitch.angular-counter']);
 
 app.controller('sessionController', ['$scope', '$log', '$timeout', '$http', function ($scope, $log, $timeout, $http) {
 
@@ -38,6 +38,7 @@ app.controller('sessionController', ['$scope', '$log', '$timeout', '$http', func
         $log.info($scope.userID);
         $scope.navCheck();
        }).error(function(data, status) {
+         $scope.userLevel = 'public';
          $scope.isUserLoggedIn = false;
          $scope.navCheck();
        }).then(function(data){
@@ -289,8 +290,8 @@ app.controller('LoginController', ['$scope', '$http', 'toastr', '$log', function
 
 // --------- Cook controller ---------- //
 
-app.controller('cookController', ['$scope', '$http', 'toastr', '$log', function($scope, $http, toastr, $log){
-
+app.controller('cookController', ['$scope', '$http', 'toastr', '$log',  function($scope, $http, toastr, $log){
+  $scope.someValue = 0;
 	// set-up loading state
 	$scope.dashboardNav = {
 		listMyMenus: true
@@ -563,7 +564,7 @@ app.controller('menuController',['$http', '$scope', '$log', '$location', functio
         $scope.todaysDate = myDate;
 
         // lets get data for today from the DB
-        $http.get('/menu?status=approved').success(function(data){
+        $http.get('/menu/public').success(function(data){
           $scope.products = data;
         });
 
@@ -571,7 +572,7 @@ app.controller('menuController',['$http', '$scope', '$log', '$location', functio
         $scope.whichday = "today";
     } else {
       // lets get data
-      $http.get('/menu?status=approved').success(function(data){
+      $http.get('/menu/public').success(function(data){
         $scope.products = data;
         $log.info(data);
       });

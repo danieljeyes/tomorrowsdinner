@@ -17,7 +17,7 @@ _.merge(exports, {
       },
       about: {
         type: 'string'
-      }
+      },
       visablename:{
         type: 'string',
         unique: true

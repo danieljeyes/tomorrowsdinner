@@ -12,8 +12,8 @@ _.merge(exports, {
 
     // lets see if the user is authenticated....
     // if req.session.passport.user doesnt exist, means user is not looged in
-    if(req.session.passport.user) {
-        res.json(req.session.passport.user, 200);
+    if(req.session.passport && req.session.passport.user) {
+      res.json(req.session.passport.user, 200);
     } else {
       res.json('User not logged in', 403);
     }

@@ -1,5 +1,15 @@
        <!-- Portfolio Grid Section -->
     <div id="cookdashboard" ng-app="menuStore" ng-controller="cookController">
+
+      <div fs-counter value="someValue"
+          data-min="0"
+          data-max="100"
+          data-step="1"
+          data-addclass="someClass"
+          data-width="130px"
+          data-editable>
+        </div>
+
       <div class="container" >
             <div class="row">
             	<div class="col-sm-3">
@@ -13,7 +23,7 @@
             				  	<li class="list-group-item"> <a href ng-click="editMenu()">Your Menus</a></li>
             				  	<li class="list-group-item"> <a href ng-click="editMenu()">Create Menu</a></li>
             				  	<li class="list-group-item"> <a href ng-click="viewOrders()">View Orders</a></li>
-            				  	<li class="list-group-item"><a href="/user/profile" >My Profile</a></li>
+            				  	<li class="list-group-item"><a href="/account/profile" >My Profile</a></li>
             				  	<li class="list-group-item"><a href="/logout">Logout</a></li>
             				  </ul>
             			</div>
@@ -45,7 +55,7 @@
     								</thead>
     								<tbody ng-repeat="product in products | orderBy: 'status'">
     									<tr>
-    										<td><a href ng-click="editMenu(product.id)">{{product.name}}</a></td>
+    										<td><a href="/cook/menus/{{product.id}}">{{product.name}}</a></td>
     										<td>TBD</td>
     										<td>{{product.status}}</td>
     										<td>{{product.price}} €</td>
