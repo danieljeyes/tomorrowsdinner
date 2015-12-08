@@ -73,7 +73,15 @@ module.exports.routes = {
       view: 'cook/menu'
     },
 
-    'get / menu/public': 'MenuController.public',
+    'get /cook/menus/new': {
+      view: 'cook/menu'
+    },
+
+    'get /cook/menus/': {
+      view: 'cook/menulist'
+    },
+
+    'get / menu/public/:limit': 'MenuController.public',
 
     'get /user/:id/role': 'UserController.userpermissions',
     'get /user/:id/role/:rolename': 'UserController.userpermissions',

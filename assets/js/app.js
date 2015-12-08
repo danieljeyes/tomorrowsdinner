@@ -1,6 +1,6 @@
 // ------------- menu section ------------------//
 
-var app = angular.module('menuStore', ['uiGmapgoogle-maps', 'ngRoute', 'toastr', 'compareTo', 'angular.filter', 'ngFileUpload', 'Firestitch.angular-counter']);
+var app = angular.module('menuStore', ['uiGmapgoogle-maps', 'ngRoute', 'toastr', 'compareTo', 'angular.filter', 'ngFileUpload', 'Firestitch.angular-counter', 'angularUtils.directives.dirPagination']);
 
 app.controller('sessionController', ['$scope', '$log', '$timeout', '$http', function ($scope, $log, $timeout, $http) {
 
@@ -332,6 +332,8 @@ app.controller('cookController', ['$scope', '$http', 'toastr', '$log',  function
 				$http.get('/menu/?id=' + id).success(function(data){
 						// set the initial data from DB to the product attribute
 						$scope.product = data;
+            
+
 					});
 
 			}
@@ -352,6 +354,7 @@ app.controller('cookController', ['$scope', '$http', 'toastr', '$log',  function
 		 $http.post($scope.reqStructure, $scope.menuMaster)
 		 .success(function onSuccess(sailsResponse){
 			 toastr.success('Your record has been saved!', 'sucessfull');
+       $scope.product = sailsResponse;
 		 })
 		 .error(function(data, status) {
 		 		$log.info('Repos error', status, data);
@@ -522,6 +525,23 @@ app.controller('PaymentController', ['$scope', '$http', 'toastr', '$log', functi
 			//$log.info('Repos error', status, data);
 			$scope.error = true;
 		});
+
+    // used to get the number of possible portions left
+    $scope.getNumber = function(num) {
+      //$log.info('test');
+      return new Array(num);
+
+    };
+
+    $scope.menuPaymentCal = function(portions, price) {
+
+      // lets calculate how much you need to pay based on the menu you have selected
+      $scope.paymentAmount = price * portions;
+
+    };
+
+
+
 }]);
 
 // Menu Controller
@@ -533,7 +553,8 @@ app.controller('menuController',['$http', '$scope', '$log', '$location', functio
   $scope.productDetails = {};
   $scope.showToday = true;
   $scope.showTomorow = false;
-  $log.info('im here');
+
+
 
 
   // function for collecting menus to display to the UI
@@ -550,8 +571,6 @@ app.controller('menuController',['$http', '$scope', '$log', '$location', functio
 
       // lets collect the products for tomrowo
       $scope.products = menus;
-      $log.info(menus);
-
 
       // lets finally setup the UI header to know which div to choose
       $scope.whichday = 'tomorow';
@@ -564,17 +583,15 @@ app.controller('menuController',['$http', '$scope', '$log', '$location', functio
         $scope.todaysDate = myDate;
 
         // lets get data for today from the DB
-        $http.get('/menu/public').success(function(data){
+        $http.get('/menu/public?limit=6').success(function(data){
           $scope.products = data;
         });
-
         // lets finally setup the UI header to know which div to choose
         $scope.whichday = "today";
     } else {
       // lets get data
       $http.get('/menu/public').success(function(data){
         $scope.products = data;
-        $log.info(data);
       });
     }
 
@@ -587,8 +604,6 @@ app.controller('menuController',['$http', '$scope', '$log', '$location', functio
   // Search the DB for a specific menu item
   $scope.viewMenu = function(menuRef){
 
-		$log.info(menuRef);
-
     //lets search based on ID. ID is passed as menu ref from the client or other controller
     $http.get('/menu?id=' + menuRef ).success(function(data){
       // lets set our data ready for the UI
@@ -597,9 +612,7 @@ app.controller('menuController',['$http', '$scope', '$log', '$location', functio
         // lets get the GEO location from google
         // lets also define the map
         $http.get('https://maps.googleapis.com/maps/api/geocode/json?address=' + data.owner.city + '&key=AIzaSyCJLCY1Hf8Z7Majrjfu_AYlMF_zqOAB-p0').success(function(geoData){
-          $log.info(geoData.results[0].geometry.location);
           $scope.map = { center: { latitude: geoData.results[0].geometry.location.lat, longitude: geoData.results[0].geometry.location.lng }, zoom: 15 };
-          $log.info($scope.map);
 
           $scope.options = {scrollwheel: false};
           $scope.circles = [

@@ -78,6 +78,14 @@ module.exports = {
       },
       owner: {
         model: 'user'
+      },
+      portions: {
+        type: 'integer',
+        required: 'true'
+      },
+      avalubleportions: {
+        type: 'integer',
+        required: 'true'
       }
     },
 

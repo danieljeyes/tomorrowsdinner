@@ -40,7 +40,16 @@ _.merge(exports, {
       menus: {
         collection: 'menu',
         via: 'owner'
+      },
+      wishlist: {
+        collection: 'wishlist',
+        via: 'wisher'
+      },
+      wishvotes: {
+        collection: 'wishlist',
+        via: 'wishvoters'
       }
+
     },
 
 });

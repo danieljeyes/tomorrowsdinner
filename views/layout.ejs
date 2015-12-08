@@ -43,7 +43,7 @@
 
   <body ng-cloak flow-prevent-drop ng-app="menuStore" ng-controller="sessionController" ng-style="{'padding-top': headerpadding}">
 
-    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation" ng-show="topbar">
+  <div class="navbar navbar-inverse navbar-fixed-top" role="navigation" ng-show="topbar">
 
 	<div class="navbar-header">
         <div class="navbar-header"><a class="navbar-brand" href="/user/profile/ ">Welcome {{loggedinUser.fname}}</a></div>
@@ -58,10 +58,10 @@
 	<div class="collapse navbar-collapse">
 		<ul class="nav navbar-nav pull-right">
 			<li><a href="/account/profile">Profile</a></li>
-			<li><a href="/account/orders/">Your Orders</a></li>
-			<li><a href="/cook/menus">Menus</a></li>
+			<li><a href="/account/orders/">My Orders</a></li>
+			<li><a href="/cook/menus/">My Menus</a></li>
       <li><a href="#">Wish List</a></li>
-      <li><a href="#">Logout</a></li>
+      <li><a href="/logout">Logout</a></li>
 			<li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
               <ul class="dropdown-menu">
@@ -106,7 +106,7 @@
                       <a class="page-scroll" href="/menus">Menus</a>
                   </li>
                   <li>
-                      <a class="page-scroll" href="/#about">About</a>
+                      <a class="page-scroll" href="#about">About</a>
                   </li>
                   <li>
                       <a class="page-scroll" href="/cook">I <i class="fa fa-heart"></i> Eating</a>
@@ -115,8 +115,8 @@
                       <a class="page-scroll" href="/consumer">I <i class="fa fa-heart"></i> Cooking</a>
                   </li>
                   <li>
-                      <a class="page-scroll" href ng-hide="loggedIn" ng-click="showLogin()"></i> Login</a>
-                      <a class="page-scroll" href ng-show="loggedIn" ng-click="logout()"></i> Logout</a>
+                      <a class="page-scroll" href ng-hide="isUserLoggedIn" ng-click="showLogin()"></i> Login</a>
+                      <a class="page-scroll" href ng-show="isUserLoggedIn" ng-click="logout()"></i> Logout</a>
                   </li>
                   <li>
                       <a class="page-scroll" href="/#contact">Contact</a>
@@ -131,14 +131,10 @@
                       <a class="page-scroll" href="/menus">Menus</a>
                   </li>
                   <li>
-                      <a class="page-scroll" href="/#about">About</a>
+                      <a class="page-scroll" href="#about">About</a>
                   </li>
                   <li>
                       <a class="page-scroll" href="/consumer/dashboard">User: {{loggedinUser.fname}}</a>
-                  </li>
-                  <li>
-                      <a class="page-scroll" href ng-hide="loggedIn" ng-click="showLogin()"></i> Login</a>
-                      <a class="page-scroll" href ng-show="loggedIn" ng-click="logout()"></i> Logout</a>
                   </li>
                   <li>
                       <a class="page-scroll" href="/#contact">Contact</a>
@@ -153,14 +149,10 @@
                     <a class="page-scroll" href="/menus">Menus</a>
                 </li>
                 <li>
-                    <a class="page-scroll" href="/#about">About</a>
+                    <a class="page-scroll" href="#about">About</a>
                 </li>
                 <li>
                     <a class="page-scroll" href="/cook/dashboard">Cook: {{loggedinUser.fname}}</a>
-                </li>
-                <li>
-                    <a class="page-scroll" href ng-hide="loggedIn" ng-click="showLogin()"></i> Login</a>
-                    <a class="page-scroll" href ng-show="loggedIn" ng-click="logout()"></i> Logout</a>
                 </li>
                 <li>
                     <a class="page-scroll" href="/#contact">Contact</a>
@@ -243,6 +235,7 @@
     <script src="/js/dependencies/bootstrap.js"></script>
     <script src="/js/dependencies/compareTo.module.js"></script>
     <script src="/js/dependencies/counter.js"></script>
+    <script src="/js/dependencies/dirPagination.js"></script>
     <script src="/js/dependencies/lodash.js"></script>
     <script src="/js/dependencies/ng-file-upload/FileAPI.js"></script>
     <script src="/js/dependencies/ng-file-upload/FileAPI.min.js"></script>
@@ -256,5 +249,34 @@
     <script src="/js/app.js"></script>
     <script src="/js/upload.js"></script>
     <!--SCRIPTS END-->
+
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <span class="copyright">Copyright &copy; Your Website 2014</span>
+                </div>
+                <div class="col-md-4">
+                    <ul class="list-inline social-buttons">
+                        <li><a href="#"><i class="fa fa-twitter"></i></a>
+                        </li>
+                        <li><a href="https://www.facebook.com/groups/423684287841549/"><i class="fa fa-facebook"></i></a>
+                        </li>
+                        <li><a href="#"><i class="fa fa-linkedin"></i></a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <ul class="list-inline quicklinks">
+                        <li><a href="#">Privacy Policy</a>
+                        </li>
+                        <li><a href="#">Terms of Use</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+
   </body>
 </html>

@@ -43,18 +43,19 @@
           </div>
           <div class="form-group">
             <label class="col-lg-3 control-label">Menu Price (per portion)</label>
-            <div class="col-lg-2" fs-counter value="product.price"
-                  data-min="0"
-                  data-max="100"
+            <div class="col-lg-2"
+                  fs-counter value="product.price"
+                  data-min="2"
+                  data-max="50"
                   data-step="1"
                   data-addclass="someClass"
                   data-width="10px"
                   data-editable>
             </div>
           </div>
-          <div class="form-group">
+          <div class="form-group" >
             <label class="col-lg-3 control-label">Max Number of Portions</label>
-            <div class="col-lg-2" fs-counter value="product.price"
+            <div class="col-lg-2" fs-counter value="product.portions"
                   data-min="0"
                   data-max="100"
                   data-step="1"
@@ -62,7 +63,10 @@
                   data-width="10px"
                   data-editable>
             </div>
+            <div class="col-lg-4">You have {{product.avalubleportions}} menus out of {{product.portions}} left to order.</div>
+            <div class="col-lg-4" ng-if="product.portions == 0"> Your portions have been sold out for this menu! Consider adding more!</div>
           </div>
+
           <h3>Menu Details</h3>
           <div class="form-group">
             <label class="col-lg-3 control-label">Starter:</label>
@@ -89,28 +93,54 @@
             </div>
           </div>
           <h3>Detailed Info</h3>
-          <div class="form-group" ng-repeat="ingrediant in product.ingrediants">
-            <label class="col-lg-3 control-label">Ingrediants:</label>
-            <div class="row">
-              <div class="col-xs-4">
-                <input type="text" class="form-control" name="ingrediant" placeholder="Ingrediant Name" value="{{ingrediant}}" />
-              </div>
-              <div class="col-xs-1">
-                <button type="button" class="btn btn-default removeButton" ng-click="removeIng($index)"><i class="fa fa-minus"></i></button>
+
+        <div class="row" ng-repeat="ingrediant in product.ingrediants track by $index">
+          <label class="col-lg-3 control-label">Imgredients:</label>
+          <div class="row">
+            <div class="col-xs-4">
+              <input type="text" class="form-control" name="ingrediant" placeholder="Ingrediant Name" value="{{ingrediant}}" />
+            </div>
+            <div class="col-xs-1">
+              <button type="button" class="btn btn-default removeButton" ng-click="removeIng($index)"><i class="fa fa-minus"></i></button>
+          </div>
+        </div>
+      </div>
+        <div class="form-group" >
+          <label class="col-lg-3 control-label"></label>
+          <div class="row">
+            <div class="col-xs-4">
+              <input type="text" class="form-control" name="image" placeholder="Add Ingrediant" ng-model="input"/>
+            </div>
+            <div class="col-xs-1">
+              <button type="button" class="btn btn-default addButton" ng-click="addIng()"><i class="fa fa-plus"></i></button>
             </div>
           </div>
         </div>
-          <div class="form-group" ng-repeat="ingrediant in product.ingrediants">
+
+          <div class="row" ng-repeat="cat in product.category track by $index">
+            <label class="col-lg-3 control-label">Catagories:</label>
+            <div class="row">
+              <div class="col-xs-4">
+                <input type="text" class="form-control" name="catagory" placeholder="Image Name" value="{{cat}}" />
+              </div>
+              <div class="col-xs-1">
+                <button type="button" class="btn btn-default removeButton" ng-click="removeCat($index)"><i class="fa fa-minus"></i></button>
+            </div>
+          </div>
+        </div>
+          <div class="form-group" >
             <label class="col-lg-3 control-label"></label>
             <div class="row">
               <div class="col-xs-4">
-                <input type="text" class="form-control" name="ingrediant" placeholder="Add Ingrediant" ng-model="input"/>
+                <input type="text" class="form-control" name="catagory" placeholder="Add Image" ng-model="catinput"/>
               </div>
               <div class="col-xs-1">
-                <button type="button" class="btn btn-default addButton" ng-click="addIng()"><i class="fa fa-plus"></i></button>
+                <button type="button" class="btn btn-default addButton" ng-click="addCat()"><i class="fa fa-plus"></i></button>
               </div>
             </div>
           </div>
+
+
           <div class="row" ng-repeat="image in product.images track by $index">
             <label class="col-lg-3 control-label">Images:</label>
             <div class="row">
@@ -122,22 +152,29 @@
             </div>
           </div>
         </div>
-          <div class="form-group" ng-repeat="ingrediant in product.images">
+          <div class="form-group" >
             <label class="col-lg-3 control-label"></label>
             <div class="row">
               <div class="col-xs-4">
-                <input type="text" class="form-control" name="image" placeholder="Add Image" ng-model="input"/>
+                <input type="text" class="form-control" name="image" placeholder="Add Image" ng-model="imginput"/>
               </div>
               <div class="col-xs-1">
                 <button type="button" class="btn btn-default addButton" ng-click="addImg()"><i class="fa fa-plus"></i></button>
               </div>
             </div>
           </div>
-
-
-
-
-
+          <div class="row" >
+            <br />
+            <div class="col-xs-6 col-md-offset-6" ng-switch="product.status">
+              <input class="btn btn-xl" type="submit" ng-click="editMenuSave(product)" value="Save" />
+                <input class="btn btn-info"  ng-switch-when="draft" type="submit" ng-click="menuPreview(product.id)" value="Preview" />
+                <input class="btn btn-xl"  ng-switch-when="draft" type="submit" ng-click="menuPreview(product.id)" value="Publish" />
+                <input class="btn btn-info"  ng-switch-when="approved" type="submit" ng-click="menuPreview(product.id)" value="Open Menu" />
+                <input class="btn btn-info"  ng-switch-when="approved" type="submit" ng-click="menuPreview(product.id)" value="Open Menu" />
+                <input class="btn btn-info"  ng-switch-when="withdrawn" type="submit" ng-click="menuPreview(product.id)" value="Re Publish" />
+                <input class="btn btn-danger"  ng-switch-when="approved" type="submit" ng-click="editMenuSave(product)" value="Withdraw" />
+            </div>
+          </div>
         </form>
       </div>
   </div>

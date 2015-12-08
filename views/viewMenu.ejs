@@ -1,5 +1,5 @@
 
-    <section id="menu" class="bg-light-gray" ng-app="menuStore" ng-controller="menuController as menuCtlr" ng-init="viewMenu('<%= req.params.id %>')">
+    <div class="bg-light-gray" ng-app="menuStore" ng-controller="menuController as menuCtlr" ng-init="viewMenu('<%= req.params.id %>')">
       <div class="container" ng-show="!error">
             <div class="row">
               <div class="alert alert-danger" role="alert" ng-show="productDetails.status == 'draft'">
@@ -53,30 +53,18 @@
                 <div class="panel-body">
                   <div class="input-group">
                     <span class="input-group-addon" id="basic-addon1">Number of Portions:</span>
-                    <select name="portions" class="form-control" >
-                        <option value="black">Black</option>
-                        <option value="blue">Blue</option>
-                        <option value="green">Green</option>
-                        <option value="orange">Orange</option>
-                        <option value="red">Red</option>
-                        <option value="yellow">Yellow</option>
-                        <option value="white">White</option>
+                    <select name="portions" class="form-control" ng-model="score" ng-change="menuPaymentCal(score, productDetails.price)">
+                        <option ng-repeat="portion in getNumber(10) track by $index" value="{{$index+1}}" >{{$index+1}} portions</option>
                     </select>
                   </div>
                   <div class="input-group">
                     <span class="input-group-addon" id="basic-addon1">Pickup Time</span>
                     <select name="pickuptime" class="form-control" >
                         <option value="black">Black</option>
-                        <option value="blue">Blue</option>
-                        <option value="green">Green</option>
-                        <option value="orange">Orange</option>
-                        <option value="red">Red</option>
-                        <option value="yellow">Yellow</option>
-                        <option value="white">White</option>
                     </select>
                   </div>
                 <div id="payment-form"></div>
-                  <input type="submit" value="Pay $10">
+                  <input class="btn btn-lg btn-xl" type="submit" value="Pay &#8364; {{paymentAmount}}">
              </form>
            </div>
 
