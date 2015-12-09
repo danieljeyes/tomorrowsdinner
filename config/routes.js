@@ -81,6 +81,13 @@ module.exports.routes = {
       view: 'cook/menulist'
     },
 
+    'get /account/orders/': {
+      view: 'user/orders'
+    },
+    'get /cook/orders/:id': {
+      view: 'cook/orders'
+    },
+
     'get / menu/public/:limit': 'MenuController.public',
 
     'get /user/:id/role': 'UserController.userpermissions',

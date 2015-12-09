@@ -288,6 +288,20 @@ app.controller('LoginController', ['$scope', '$http', 'toastr', '$log', function
   };
 }]);
 
+// --------- Order Menu controller ---------- //
+
+app.controller('cookOrderController', ['$scope', '$http', 'toastr', '$log',  function($scope, $http, toastr, $log){
+
+	 $scope.collectMenuOrders = function(menuid){
+		 // I didnt finsih below this
+		 $http.get('/order/?menuid=' + menuid + '&status=approved').success(function(data){
+				 $scope.products = data;
+			 });
+
+		 };
+
+}]);
+
 // --------- Cook controller ---------- //
 
 app.controller('cookController', ['$scope', '$http', 'toastr', '$log',  function($scope, $http, toastr, $log){
@@ -522,7 +536,7 @@ app.controller('SignupController', ['$scope', '$http', 'toastr', '$log', functio
 
 app.controller('PaymentController', ['$scope', '$http', 'toastr', '$log', function($scope, $http, toastr, $log){
 
-		$scope.paymentClientToken = $http.get('/payment/clientToken').success(function(response){
+		$scope.paymentClientToken = $http.get('/payment/client_token').success(function(response){
 			$scope.paymentClientToken = response.clientToken;
 		}).error(function(data, status) {
 			//$log.info('Repos error', status, data);

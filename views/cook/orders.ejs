@@ -1,0 +1,58 @@
+
+<div class="container"  ng-controller="cookOrderController" ng-init="collectMenuOrders('<%=req.params.id%>')">
+    <h1>My Orders - {{order.product.menu}}</h1>
+  	<hr>
+	<div class="row">
+
+    <!-- left column -->
+    <div class="col-md-3">
+      <div class="text-center">
+        <img src="//placehold.it/100" class="avatar img-circle" alt="avatar">
+        <h6>Upload a different photo...</h6>
+
+        <input type="file" class="form-control">
+      </div>
+    </div>
+
+    <!-- edit form column -->
+    <div class="col-md-9 personal-info">
+        <form>
+          <div class="form-group">
+            <div class="input-group">
+              <div class="input-group-addon"><i class="fa fa-search"></i></div>
+              <input type="text" class="form-control" placeholder="Search orders for this menu" ng-model="searchMenu">
+            </div>
+          </div>
+        </form>
+
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                  <th><a href="#" ng-click="listOrderMenu = 'name'"> Customer <span class="fa fa-caret-down"></span> </a></th>
+                  <th><a href="#" ng-click="listOrderMenu = 'date'">Menu<span class="fa fa-caret-down"></span> </a></th>
+                  <th><a href="#" ng-click="listOrderMenu = 'status'">Status<span class="fa fa-caret-down"></span> </a></th>
+                  <th><a href="#" ng-click="listOrderMenu = 'price'">Price<span class="fa fa-caret-down"></span> </a></th>
+                  <th><a href="#" ng-click="listOrderMenu = 'createdAt'">Created On<span class="fa fa-caret-down"></span> </a></th>
+                  <th><a href="#" ng-click="listOrderMenu = 'editedOn'">Edited On<span class="fa fa-caret-down"></span> </a></th>
+                  <th></th>
+                </tr>
+            </thead>
+            <tbody dir-paginate="product in products | orderBy: listOrderMenu | itemsPerPage: 10 | filter:searchMenu">
+              <tr>
+                <td><a href="/cook/menus/{{product.id}}">{{product.name}}</a></td>
+                <td>TBD</td>
+                <td>{{product.status}}</td>
+                <td>{{product.price}} €</td>
+                <td>{{product.createdAt | date:'medium'}}</td>
+                <td>{{product.createdAt | date:'medium'}}</td>
+              <td><a href ng-click="editMenu(product.id)">Edit</a></td>
+              </tr>
+            </tbody>
+        </table>
+            <dir-pagination-controls></dir-pagination-controls>
+          </div>
+        </div>
+      </div>
+  </div>
+</div>
+<hr>

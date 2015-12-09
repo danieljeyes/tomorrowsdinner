@@ -21,23 +21,24 @@
             <thead>
                 <tr>
                   <th><a href="#" ng-click="listOrderMenu = 'name'"> Name <span class="fa fa-caret-down"></span> </a></th>
-                  <th><a href="#" ng-click="listOrderMenu = 'date'">Date<span class="fa fa-caret-down"></span> </a></th>
-                  <th><a href="#" ng-click="listOrderMenu = 'status'">Status<span class="fa fa-caret-down"></span> </a></th>
+                  <th><a href="#" ng-click="listOrderMenu = 'date'">Dinner Date<span class="fa fa-caret-down"></span> </a></th>
                   <th><a href="#" ng-click="listOrderMenu = 'price'">Price<span class="fa fa-caret-down"></span> </a></th>
                   <th><a href="#" ng-click="listOrderMenu = 'createdAt'">Created On<span class="fa fa-caret-down"></span> </a></th>
                   <th><a href="#" ng-click="listOrderMenu = 'editedOn'">Edited On<span class="fa fa-caret-down"></span> </a></th>
+                  <th><a href="#" ng-click="listOrderMenu = 'status'">Status<span class="fa fa-caret-down"></span> </a></th>
                   <th></th>
                 </tr>
             </thead>
             <tbody dir-paginate="product in products | orderBy: listOrderMenu | itemsPerPage: 10 | filter:searchMenu">
               <tr>
-                <td><a href="/cook/menus/{{product.id}}">{{product.name}}</a></td>
-                <td>TBD</td>
-                <td>{{product.status}}</td>
+                <td><a href="/menus/{{product.id}}">{{product.name}}</a></td>
+                <td>{product.date}}</td>
                 <td>{{product.price}} €</td>
-                <td>{{product.createdAt | date:'medium'}}</td>
-                <td>{{product.createdAt | date:'medium'}}</td>
-              <td><a href ng-click="editMenu(product.id)">Edit</a></td>
+                <td>{{product.createdAt | date:'dd/MM/yyyy'}}</td>
+                <td>{{product.updatedAt | date:'dd/MM/yyyy'}}</td>
+                <td>{{product.status}}</td>
+              <td><a href="/cook/menus/{{product.id}}">Edit</a></td>
+              <td><a href="/cook/orders/{{product.id}}">Orders</a></td>
               </tr>
             </tbody>
         </table>

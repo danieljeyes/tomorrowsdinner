@@ -65,10 +65,10 @@
                   </div>
                 <div id="payment-form"></div>
                   <input class="btn btn-lg btn-xl" type="submit" value="Pay &#8364; {{paymentAmount}}">
+                  <input type="hidden" value="{{productDetails.price}}" name="price" />
+                  <input type="hidden" value="{{productDetails.id}}" name="menuid" />
              </form>
            </div>
-
-
              <script src="https://js.braintreegateway.com/v2/braintree.js"></script>
              <script>
              // We generated a client token for you so you can test out this code
