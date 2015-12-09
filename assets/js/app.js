@@ -292,6 +292,9 @@ app.controller('LoginController', ['$scope', '$http', 'toastr', '$log', function
 
 app.controller('cookController', ['$scope', '$http', 'toastr', '$log',  function($scope, $http, toastr, $log){
   $scope.someValue = 0;
+  $scope.listOrderMenu = 'date';
+  $scope.listOrderMenuReverse  = false;  // set the default sort order
+
 	// set-up loading state
 	$scope.dashboardNav = {
 		listMyMenus: true
@@ -332,7 +335,7 @@ app.controller('cookController', ['$scope', '$http', 'toastr', '$log',  function
 				$http.get('/menu/?id=' + id).success(function(data){
 						// set the initial data from DB to the product attribute
 						$scope.product = data;
-            
+
 
 					});
 

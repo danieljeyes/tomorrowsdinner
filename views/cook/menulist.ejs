@@ -3,40 +3,33 @@
     <h1>My Menus</h1>
   	<hr>
 	<div class="row">
-      <!-- left column -->
-      <div class="col-md-3">
-        <div class="text-center">
-          <img src="//placehold.it/100" class="avatar img-circle" alt="avatar">
-          <h6>Upload a different photo...</h6>
-
-          <input type="file" class="form-control">
-        </div>
-      </div>
-
 
 
       <!-- edit form column -->
-      <div class="col-md-9 personal-info">
-        <div class="alert alert-info alert-dismissable">
-          <a class="panel-close close" data-dismiss="alert">×</a>
-          <i class="fa fa-coffee"></i>
-          This is an <strong>.alert</strong>. Use this to show important messages to the user.
-        </div>
-        <h3>Menu Basic Info</h3>
+      <div class="col-md-12 personal-info">
+        <form>
+          <div class="form-group">
+            <div class="input-group">
+              <div class="input-group-addon"><i class="fa fa-search"></i></div>
+              <input type="text" class="form-control" placeholder="Search your menu" ng-model="searchMenu">
+            </div>
+          </div>
+        </form>
+
 
         <table class="table table-striped">
             <thead>
                 <tr>
-                  <th>Name</th>
-                  <th>Date</th>
-                  <th>Status</th>
-                  <th>Price</th>
-                  <th>Created On</th>
-                  <th>Edited On</th>
+                  <th><a href="#" ng-click="listOrderMenu = 'name'"> Name <span class="fa fa-caret-down"></span> </a></th>
+                  <th><a href="#" ng-click="listOrderMenu = 'date'">Date<span class="fa fa-caret-down"></span> </a></th>
+                  <th><a href="#" ng-click="listOrderMenu = 'status'">Status<span class="fa fa-caret-down"></span> </a></th>
+                  <th><a href="#" ng-click="listOrderMenu = 'price'">Price<span class="fa fa-caret-down"></span> </a></th>
+                  <th><a href="#" ng-click="listOrderMenu = 'createdAt'">Created On<span class="fa fa-caret-down"></span> </a></th>
+                  <th><a href="#" ng-click="listOrderMenu = 'editedOn'">Edited On<span class="fa fa-caret-down"></span> </a></th>
                   <th></th>
                 </tr>
             </thead>
-            <tbody dir-paginate="product in products | orderBy: 'status' | itemsPerPage: 10">
+            <tbody dir-paginate="product in products | orderBy: listOrderMenu | itemsPerPage: 10 | filter:searchMenu">
               <tr>
                 <td><a href="/cook/menus/{{product.id}}">{{product.name}}</a></td>
                 <td>TBD</td>
@@ -48,7 +41,10 @@
               </tr>
             </tbody>
         </table>
-        <dir-pagination-controls></dir-pagination-controls>
+            <dir-pagination-controls></dir-pagination-controls>
+            <form action="create/" method="get">
+              <input class="btn btn-xl" type="submit" value="Create New Menu">
+            </form>
           </div>
         </div>
       </div>
